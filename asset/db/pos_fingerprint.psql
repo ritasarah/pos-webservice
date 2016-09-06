@@ -1,0 +1,63 @@
+-- Converted by db_converter
+START TRANSACTION;
+SET standard_conforming_strings=off;
+SET escape_string_warning=off;
+SET CONSTRAINTS ALL DEFERRED;
+
+CREATE TABLE "barang" (
+    "id" integer NOT NULL,
+    "nama" varchar(60) NOT NULL,
+    "harga" integer NOT NULL,
+    "stok" integer NOT NULL,
+    "kategori" varchar(40) NOT NULL,
+    "icon" varchar(60) NOT NULL,
+    PRIMARY KEY ("id")
+);
+
+INSERT INTO "barang" VALUES (1,'gula impor',5000,45,'gula',''),(2,'gula lokal',4000,50,'gula','');
+CREATE TABLE "histori" (
+    "id" integer NOT NULL,
+    "id_user" integer NOT NULL,
+    "id_barang" integer NOT NULL,
+    "tanggal" timestamp with time zone NOT NULL,
+    "kuantitas" integer NOT NULL,
+    PRIMARY KEY ("id")
+);
+
+INSERT INTO "histori" VALUES (1,1,1,'2016-08-30 13:00:00',2),(2,1,2,'2016-08-30 13:00:00',2);
+CREATE TABLE "userdata" (
+    "id" integer NOT NULL,
+    "nik_ktp" varchar(60) NOT NULL,
+    "saldo" bigint NOT NULL,
+    "nama" varchar(60) NOT NULL,
+    PRIMARY KEY ("id")
+);
+
+INSERT INTO "userdata" VALUES (1,'123456789101',60000,'budi'),(2,'97364876232098',4000,'susi');
+
+-- Post-data save --
+COMMIT;
+START TRANSACTION;
+
+-- Typecasts --
+
+-- Foreign keys --
+ALTER TABLE "histori" ADD CONSTRAINT "fk_barang" FOREIGN KEY ("id_barang") REFERENCES "barang" ("id") DEFERRABLE INITIALLY DEFERRED;
+CREATE INDEX ON "histori" ("id_barang");
+ALTER TABLE "histori" ADD CONSTRAINT "fk_user" FOREIGN KEY ("id_user") REFERENCES "userdata" ("id") DEFERRABLE INITIALLY DEFERRED;
+CREATE INDEX ON "histori" ("id_user");
+
+-- Sequences --
+CREATE SEQUENCE barang_id_seq;
+SELECT setval('barang_id_seq', max(id)) FROM barang;
+ALTER TABLE "barang" ALTER COLUMN "id" SET DEFAULT nextval('barang_id_seq');
+CREATE SEQUENCE histori_id_seq;
+SELECT setval('histori_id_seq', max(id)) FROM histori;
+ALTER TABLE "histori" ALTER COLUMN "id" SET DEFAULT nextval('histori_id_seq');
+CREATE SEQUENCE userdata_id_seq;
+SELECT setval('userdata_id_seq', max(id)) FROM userdata;
+ALTER TABLE "userdata" ALTER COLUMN "id" SET DEFAULT nextval('userdata_id_seq');
+
+-- Full Text keys --
+
+COMMIT;
