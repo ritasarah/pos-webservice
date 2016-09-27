@@ -302,6 +302,7 @@ class Api_model extends CI_Model {
         $row = mysql_fetch_row($result);
         return $row;
     }
+//ini==================================================================
 
     public function getBarang(){
         $query = $this->db->get('barang');
@@ -323,8 +324,10 @@ class Api_model extends CI_Model {
     }
 
     public function getHistory($id){
+        
         $this->db->select();
         $this->db->from('histori');
+        $this->db->join('histori', 'histori.id_barang=barang.id', 'left');
         $this->db->where('id_user', $id);
         $query = $this->db->get();
 
@@ -335,6 +338,8 @@ class Api_model extends CI_Model {
             return $query->result_array();
         }
     }
+
+
     
 }
 
