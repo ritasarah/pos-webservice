@@ -327,7 +327,7 @@ class Api_model extends CI_Model {
         
         $this->db->select();
         $this->db->from('histori');
-        $this->db->join('histori', 'histori.id_barang=barang.id', 'left');
+        $this->db->join('barang', 'histori.id_barang=barang.id', 'left');
         $this->db->where('id_user', $id);
         $query = $this->db->get();
 
