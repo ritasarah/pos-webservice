@@ -339,6 +339,22 @@ class Api_model extends CI_Model {
         }
     }
 
+    public function getHistoryBarang($id){
+        $this->db->select();
+        $this->db->from('histori');
+        $this->db->join('barang', 'histori.id_barang=barang.id', 'left');
+        $this->db->where('id_barang', $id);
+        $query = $this->db->get();
+
+        if ($query == null) {
+            return array();
+        }
+        else {
+            return $query->result_array();
+        }
+
+    }
+
 
     
 }

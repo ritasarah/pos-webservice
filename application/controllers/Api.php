@@ -196,4 +196,10 @@ class Api extends REST_Controller {
         $this->response($res, 200);
     }
 
+    public function getHistoryBarang_get(){
+     $id = $this->get('id');
+        $res = $this->api_model->getHistoryBarang($id);
+        $this->response($res, 200);   
+    }
+
 }
