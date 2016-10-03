@@ -193,8 +193,13 @@ class Api extends REST_Controller {
     public function getHistory_get(){
         $id = $this->get('id');
         $reqtype = $this->get('reqtype');
-
-        $res = $this->api_model->getHistory($id,$reqtype);
+        if($reqtype==4){
+            $dateawal = $this->get('dateawal');
+            $dateakhir = $this->get('dateakhir');
+            $res = $this->api_model->getHistoryRange($id,$reqtype,$dateawal,$dateakhir);
+        }else{
+            $res = $this->api_model->getHistory($id,$reqtype);
+        }
         $this->response($res, 200);
     }
 

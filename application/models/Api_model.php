@@ -324,24 +324,19 @@ class Api_model extends CI_Model {
     }
 
     public function getHistory($id,$reqtype){
-        $date = date('Y-m-d'); 
-
         $this->db->select();
         $this->db->from('histori');
         $this->db->join('barang', 'histori.id_barang=barang.id', 'left');
         $this->db->where('id_user', $id);
 
-        if($reqtype==4){
-
-        }else {
-            if ($reqtype==2){ //weekly
-                $date->modify("-7 days");
-
-            }else if($reqtype==3){ //monthly
-                $date = date('Y-M-01');
-            }
-        $this->db->where('tanggal>=', $date);            
+        if(reqtype==1){//daily
+          $date = date('Y-m-d'); 
+        }else if ($reqtype==2){ //weekly
+            $date = date('Y-m-d', strtotime('-7 days'))
+        }else if($reqtype==3){ //monthly
+            $date = date('Y-M-01');
         }
+        $this->db->where('tanggal>=', $date);            
         
         $query = $this->db->get();
 
@@ -352,6 +347,26 @@ class Api_model extends CI_Model {
             return $query->result_array();
         }
     }
+
+    public function getHistoryRange($id,$reqtype,$dateawal,$dateakhir){
+
+    $this->db->select();
+    $this->db->from('histori');
+    $this->db->join('barang', 'histori.id_barang=barang.id', 'left');
+    $this->db->where('id_user', $id);
+
+    $this->db->where('tanggal>=', $dateawal);            
+    $this->db->where('tanggal<=', $dateakhir);
+
+    $query = $this->db->get();
+
+    if ($query == null) {
+        return array();
+    }
+    else {
+        return $query->result_array();
+    }
+}
 
     public function getHistoryBarang($id){
         $this->db->select();
