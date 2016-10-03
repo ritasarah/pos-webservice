@@ -335,7 +335,7 @@ class Api_model extends CI_Model {
 
         }else {
             if ($reqtype==2){ //weekly
-                $date->date_modify("-7 days");
+                $date->modify("-7 days");
 
             }else if($reqtype==3){ //monthly
                 $date = date('Y-M-01');
