@@ -192,7 +192,7 @@ class Api extends REST_Controller {
 
     public function getHistory_get(){
         $id = $this->get('id');
-        $id = $this->get('reqtype');
+        $reqtype = $this->get('reqtype');
 
         $res = $this->api_model->getHistory($id,$reqtype);
         $this->response($res, 200);
