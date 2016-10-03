@@ -323,14 +323,26 @@ class Api_model extends CI_Model {
         }
     }
 
-    public function getHistory($id){
-        $date = date(YYYY-MM-DD); 
-        
+    public function getHistory($id,$reqtype){
+        $date = date(Y-m-d); 
+
         $this->db->select();
         $this->db->from('histori');
         $this->db->join('barang', 'histori.id_barang=barang.id', 'left');
         $this->db->where('id_user', $id);
-        $this->db->where('tanggal', $date);
+
+        if($reqtype==4){
+
+        }else {
+            if (reqtype==2){ //weekly
+                $date->date_modify("-7 days");
+
+            }else if(reqtype==3){ //monthly
+                $date = date(Y-M-01);
+            }
+        $this->db->where('tanggal>=', $date);            
+        }
+        
         $query = $this->db->get();
 
         if ($query == null) {
