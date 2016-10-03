@@ -324,7 +324,7 @@ class Api_model extends CI_Model {
     }
 
     public function getHistory($id,$reqtype){
-        $date = date(Y-m-d); 
+        $date = date('Y-m-d'); 
 
         $this->db->select();
         $this->db->from('histori');
@@ -338,7 +338,7 @@ class Api_model extends CI_Model {
                 $date->date_modify("-7 days");
 
             }else if(reqtype==3){ //monthly
-                $date = date(Y-M-01);
+                $date = date('Y-M-01');
             }
         $this->db->where('tanggal>=', $date);            
         }
