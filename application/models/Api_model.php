@@ -334,10 +334,10 @@ class Api_model extends CI_Model {
         if($reqtype==4){
 
         }else {
-            if (reqtype==2){ //weekly
+            if ($reqtype==2){ //weekly
                 $date->date_modify("-7 days");
 
-            }else if(reqtype==3){ //monthly
+            }else if($reqtype==3){ //monthly
                 $date = date('Y-M-01');
             }
         $this->db->where('tanggal>=', $date);            
