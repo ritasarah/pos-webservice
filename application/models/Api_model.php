@@ -329,7 +329,7 @@ class Api_model extends CI_Model {
         $this->db->join('barang', 'histori.id_barang=barang.id', 'left');
         $this->db->where('id_user', $id);
 
-        if(reqtype==1){//daily
+        if($reqtype==1){//daily
           $date = date('Y-m-d'); 
         }else if ($reqtype==2){ //weekly
             $date = date('Y-m-d', strtotime('-7 days'));
