@@ -368,11 +368,15 @@ class Api_model extends CI_Model {
     }
 }
 
-    public function getHistoryBarang($id){
+    public function getHistoryBarang($id,$nama){
+
+        //masih ngebug
         $this->db->select();
         $this->db->from('histori');
         $this->db->join('barang', 'histori.id_barang=barang.id', 'left');
-        $this->db->where('nama', $id);
+        // $this->db->where('nama', $nama);
+        $this->db->where('id_user', $id);
+
         $query = $this->db->get();
 
         if ($query == null) {
@@ -383,8 +387,6 @@ class Api_model extends CI_Model {
         }
 
     }
-
-
     
 }
 

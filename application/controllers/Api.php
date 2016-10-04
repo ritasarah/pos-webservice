@@ -204,8 +204,8 @@ class Api extends REST_Controller {
     }
 
     public function getHistoryBarang_get(){
-     $id = $this->get('id');
-          $nama = $this->get('nama');
+        $id = $this->get('id');
+        $nama = $this->get('nama');
         $res = $this->api_model->getHistoryBarang($id,$nama);
         $this->response($res, 200);   
     }
