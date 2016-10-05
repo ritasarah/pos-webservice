@@ -216,10 +216,10 @@ class Api extends REST_Controller {
         $id = $this->post('qty');
 
         $data = array(
-        'id_user' => $this->input->post('id'),
-        'id_barang' => $this->input->post('id_barang'),
+        'id_user' => $this->post('id'),
+        'id_barang' => $this->post('id_barang'),
         'tanggal' => date('Y-m-d H:i:s'),
-        'kuantitas' => $this->input->post('qty')
+        'kuantitas' => $this->post('qty')
         );
 //T
         $res = $this->api_model->postHistory($data);
