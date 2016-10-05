@@ -370,13 +370,10 @@ class Api_model extends CI_Model {
 
     public function getHistoryBarang($id,$nama){
 
-        //masih ngebug
         $this->db->select();
         $this->db->from('histori');
         $this->db->join('barang', 'histori.id_barang=barang.id', 'left');
         $this->db->where("(nama='$nama' AND id_user=$id)", NULL, FALSE);
-        // $this->db->where('nama', $nama);
-        // $this->db->where('id_user', $id);
 
         $query = $this->db->get();
 
@@ -386,6 +383,16 @@ class Api_model extends CI_Model {
         else {
             return $query->result_array();
         }
+
+    }
+
+    public function postHistory($data) {
+        // $id  = $this->input->post('id');
+        // $id_barang  = $this->input->post('id_barang');
+        // $qty  = $this->input->post('qty');
+
+    $this->db->insert('histori', $data);
+
 
     }
     
