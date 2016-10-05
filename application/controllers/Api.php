@@ -221,7 +221,9 @@ class Api extends REST_Controller {
         'tanggal' => date('Y-m-d H:i:s'),
         'kuantitas' => $this->post('qty')
         );
-//T
+
+        var_dump($data);
+
         $res = $this->api_model->postHistory($data);
         // $this->response($res, 200);
         $this->response(array('id'=>$id_returned,'message'=>"Successfully created."),201);   
