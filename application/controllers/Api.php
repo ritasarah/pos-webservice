@@ -226,4 +226,17 @@ class Api extends REST_Controller {
         $this->response(array('id'=>$id_returned,'message'=>"Successfully created."),201);   
     }
 
+    public function postHistori_get(){
+
+        $data = array(
+        'id_user' => $this->get('id_user'),
+        'id_barang' => $this->get('id_barang'),
+        'tanggal' => date('Y-m-d H:i:s'),
+        'kuantitas' => $this->get('kuantitas')
+        );
+        $res = $this->api_model->postHistory($data);
+
+        $this->response($res, 200);
+    }
+
 }
