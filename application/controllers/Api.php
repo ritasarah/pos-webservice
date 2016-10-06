@@ -211,9 +211,13 @@ class Api extends REST_Controller {
     }
 
     public function postHistory_post(){
-        $id = $this->post('id_user');
-        $id = $this->post('id_barang');
-        $id = $this->post('kuantitas');
+        $id_user = $this->post('id_user');
+        $id_barang = $this->post('id_barang');
+        $kuantitas = $this->post('kuantitas');
+        var_dump($id_user);
+        var_dump($id_barang);
+        var_dump($kuantitas);
+
 
         $data = array(
         'id_user' => $this->post('id_user'),
