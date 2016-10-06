@@ -246,4 +246,17 @@ class Api extends REST_Controller {
         $this->response($res, 200);
     }
 
+    public function postSaldo_get(){
+        $id = $this->get('id');
+
+        $data = array(
+        'id' => $this->get('id'),
+        'saldo' => $this->get('saldo'),
+        );
+        $res = $this->api_model->postSaldo($data,$id);
+
+        $this->response($res, 200);
+    }
+
+
 }

@@ -393,9 +393,17 @@ class Api_model extends CI_Model {
 
     $this->db->insert('histori', $data);
 
-
     }
+
+
+    public function postHistory($data,$id) {
+        // $id  = $this->input->post('id');
+        // $id_barang  = $this->input->post('id_barang');
+        // $qty  = $this->input->post('qty');
+
+    $this->db->update('userdata', $data, "id = $id");
     
+    }    
 }
 
 class TableDB {
