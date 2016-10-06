@@ -396,7 +396,7 @@ class Api_model extends CI_Model {
     }
 
 
-    public function postHistory($data,$id) {
+    public function postSaldo($data,$id) {
         // $id  = $this->input->post('id');
         // $id_barang  = $this->input->post('id_barang');
         // $qty  = $this->input->post('qty');
