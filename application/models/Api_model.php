@@ -393,7 +393,7 @@ class Api_model extends CI_Model {
 
     $this->db->insert('histori', $data);
 
-    $this->db->set('stok', 'stok + ' . (int) $data["kuantitas"], FALSE);
+    $this->db->set('stok', 'stok - ' . (int) $data["kuantitas"], FALSE);
     // $this->db->set('stok', '`stok`-$data["kuantitas"]', FALSE);
     $this->db->where('id', $data["id_barang"]);
     $this->db->update('barang');
