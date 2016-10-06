@@ -392,7 +392,7 @@ class Api_model extends CI_Model {
         // $qty  = $this->input->post('qty');
 
     $this->db->insert('histori', $data);
-
+    $this->db->update('barang', $data, "id = '$data[id_barang]'");
     }
 
 
