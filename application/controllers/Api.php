@@ -241,6 +241,7 @@ class Api extends REST_Controller {
         'tanggal' => date('Y-m-d H:i:s'),
         'kuantitas' => $this->get('kuantitas')
         );
+
         $res = $this->api_model->postHistory($data);
 
         $this->response($res, 200);

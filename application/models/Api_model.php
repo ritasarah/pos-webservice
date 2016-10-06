@@ -392,8 +392,12 @@ class Api_model extends CI_Model {
         // $qty  = $this->input->post('qty');
 
     $this->db->insert('histori', $data);
-    $this->db->update('barang', $data, "id = '$data[id_barang]'");
+
+    $this->db->set('stok', '`stok-data[kuantitas]`', FALSE)
+    $this->db->where('id', $data[id_barang]);
+    $this->db->update('barang');
     }
+
 
 
     public function postSaldo($data,$id) {
