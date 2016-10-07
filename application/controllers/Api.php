@@ -226,7 +226,7 @@ class Api extends REST_Controller {
         'kuantitas' => $_POST["kuantitas"]
         );
 
-        var_dump($data);
+        //var_dump($data);
 
         $res = $this->api_model->postHistory($data);
         // $this->response($res, 200);
@@ -236,15 +236,19 @@ class Api extends REST_Controller {
     public function postHistori_get(){
 
         $data = array(
-        'id_user' => $this->get('id_user'),
-        'id_barang' => $this->get('id_barang'),
-        'tanggal' => date('Y-m-d H:i:s'),
-        'kuantitas' => $this->get('kuantitas')
+			'id_user' => $this->get('id_user'),
+			'id_barang' => $this->get('id_barang'),
+			'tanggal' => date('Y-m-d H:i:s'),
+			'kuantitas' => $this->get('kuantitas')
         );
 
         $res = $this->api_model->postHistory($data);
+		if ($res)
+			$result = array('response'=>'success');
+		else
+			$result = array('response'=>'failed');
 
-        $this->response($res, 200);
+        $this->response($result, 200);
     }
 
     public function postSaldo_get(){
