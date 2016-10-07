@@ -260,7 +260,12 @@ class Api extends REST_Controller {
         );
         $res = $this->api_model->postSaldo($data,$id);
 
-        $this->response($res, 200);
+        if ($res)
+			$result = array('response'=>'success');
+		else
+			$result = array('response'=>'failed');
+
+        $this->response($result, 200);
     }
 
 

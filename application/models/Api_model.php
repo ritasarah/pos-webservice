@@ -407,8 +407,8 @@ class Api_model extends CI_Model {
         // $id_barang  = $this->input->post('id_barang');
         // $qty  = $this->input->post('qty');
 
-    $this->db->update('userdata', $data, "id = '$id'");
-    
+		$this->db->update('userdata', $data, "id = '$id'");
+		return $this->db->affected_rows() > 0; 
     }    
 }
 
