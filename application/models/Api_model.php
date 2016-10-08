@@ -66,14 +66,6 @@ class Api_model extends CI_Model {
         return ($this->createTable($_SESSION["tableName"], $this->tabledb->getColumnName(), $dataExample));
     }
 
-    private function generateString($length){
-        $charset = "abcdefghijklmnopqrstuvwxyz0123456789";
-        $key = "";
-        for($i=0; $i<$length; $i++)
-            $key .= $charset[(mt_rand(0,(strlen($charset)-1)))];
-        return $key;
-    }
-
     private function createTable($tableName, $columnName, $dataExample) {
 
         if ($this->connect()) {
@@ -302,8 +294,23 @@ class Api_model extends CI_Model {
         $row = mysql_fetch_row($result);
         return $row;
     }
-//ini==================================================================
 
+	//ini==================================================================
+
+	public function getUserToken($id) {
+		$this->db->select('token');
+		$this->db->from('userdata');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+
+        if ($query == null) {
+            return array();
+        }
+        else {
+            return $query->result_array()[0]->token;
+        }
+	}
+	
     public function getBarang(){
         $query = $this->db->get('barang');
         return $query->result_array();
@@ -400,8 +407,6 @@ class Api_model extends CI_Model {
 		return $this->db->affected_rows() > 0; 
     }
 
-
-
     public function postSaldo($data,$id) {
         // $id  = $this->input->post('id');
         // $id_barang  = $this->input->post('id_barang');
@@ -410,6 +415,14 @@ class Api_model extends CI_Model {
 		$this->db->update('userdata', $data, "id = '$id'");
 		return $this->db->affected_rows() > 0; 
     }    
+	
+	private function generateString($length){
+        $charset = "abcdefghijklmnopqrstuvwxyz0123456789";
+        $key = "";
+        for($i=0; $i<$length; $i++)
+            $key .= $charset[(mt_rand(0,(strlen($charset)-1)))];
+        return $key;
+    }
 }
 
 class TableDB {

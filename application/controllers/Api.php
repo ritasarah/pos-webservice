@@ -179,12 +179,13 @@ class Api extends REST_Controller {
         $this->response($res, 200);
     }
 
+	// WS pos-fingerprint function start here
     public function getBarang_get(){
         $res = $this->api_model->getBarang();
         $this->response($res, 200);
     }
 
-    public function getCredentials_get(){
+    public function getCredentials_get() {
         $id = $this->get('id');
         $res = $this->api_model->getCredentials($id);
         $this->response($res, 200);
@@ -192,22 +193,34 @@ class Api extends REST_Controller {
 
     public function getHistory_get(){
         $id = $this->get('id');
-        $reqtype = $this->get('reqtype');
-        if($reqtype==4){
-            $dateawal = $this->get('dateawal');
-            $dateakhir = $this->get('dateakhir');
-            $res = $this->api_model->getHistoryRange($id,$reqtype,$dateawal,$dateakhir);
-        }else{
-            $res = $this->api_model->getHistory($id,$reqtype);
-        }
-        $this->response($res, 200);
+		$token = $this->get('token');
+		
+		if ($token == $this->api_model->getUserToken($id)) {
+			$reqtype = $this->get('reqtype');
+			if($reqtype==4){
+				$dateawal = $this->get('dateawal');
+				$dateakhir = $this->get('dateakhir');
+				$res = $this->api_model->getHistoryRange($id,$reqtype,$dateawal,$dateakhir);
+			}else{
+				$res = $this->api_model->getHistory($id,$reqtype);
+			}
+			$this->response($res, 200);
+		}
+		else
+			$this->response("invalid token", 200);
     }
 
     public function getHistoryBarang_get(){
         $id = $this->get('id');
         $nama = $this->get('nama');
-        $res = $this->api_model->getHistoryBarang($id,$nama);
-        $this->response($res, 200);   
+		$token = $this->get('token');
+		
+		if ($token == $this->api_model->getUserToken($id)) {
+			$res = $this->api_model->getHistoryBarang($id,$nama);
+			$this->response($res, 200);   
+		}
+		else
+			$this->response("invalid token", 200);
     }
 
     public function postHistory_post(){
@@ -234,38 +247,49 @@ class Api extends REST_Controller {
     }
 
     public function postHistori_get(){
+		$id_user = $this->get('id_user');
+		$token = $this->get('token');
+		
+		if ($token == $this->api_model->getUserToken($id)_user) {
+			$data = array(
+				'id_user' => $id_user,
+				'id_barang' => $this->get('id_barang'),
+				'tanggal' => date('Y-m-d H:i:s'),
+				'kuantitas' => $this->get('kuantitas')
+			);
 
-        $data = array(
-			'id_user' => $this->get('id_user'),
-			'id_barang' => $this->get('id_barang'),
-			'tanggal' => date('Y-m-d H:i:s'),
-			'kuantitas' => $this->get('kuantitas')
-        );
+			$res = $this->api_model->postHistory($data);
+			if ($res)
+				$result = array('response'=>'success');
+			else
+				$result = array('response'=>'failed');
 
-        $res = $this->api_model->postHistory($data);
-		if ($res)
-			$result = array('response'=>'success');
+			$this->response($result, 200);
+		}
 		else
-			$result = array('response'=>'failed');
-
-        $this->response($result, 200);
+			$this->response("invalid token", 200);
     }
 
     public function postSaldo_get(){
         $id = $this->get('id');
+		$token = $this->get('token');
+		
+		if ($token == $this->api_model->getUserToken($id)_user) {
+			$data = array(
+			'id' => $this->get('id'),
+			'saldo' => $this->get('saldo'),
+			);
+			$res = $this->api_model->postSaldo($data,$id);
 
-        $data = array(
-        'id' => $this->get('id'),
-        'saldo' => $this->get('saldo'),
-        );
-        $res = $this->api_model->postSaldo($data,$id);
+			if ($res)
+				$result = array('response'=>'success');
+			else
+				$result = array('response'=>'failed');
 
-        if ($res)
-			$result = array('response'=>'success');
+			$this->response($result, 200);
+		}
 		else
-			$result = array('response'=>'failed');
-
-        $this->response($result, 200);
+			$this->response("invalid token", 200);
     }
 
 
