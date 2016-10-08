@@ -250,7 +250,7 @@ class Api extends REST_Controller {
 		$id_user = $this->get('id_user');
 		$token = $this->get('token');
 		
-		if ($token == $this->api_model->getUserToken($id)_user) {
+		if ($token == $this->api_model->getUserToken($id_user)) {
 			$data = array(
 				'id_user' => $id_user,
 				'id_barang' => $this->get('id_barang'),
