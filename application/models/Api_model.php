@@ -307,9 +307,21 @@ class Api_model extends CI_Model {
             return array();
         }
         else {
-			var_dump($query->result_array());
+			//var_dump($query->result_array());
             return $query->result_array();
         }
+	}
+	
+	private function generateToken($length){
+        $charset = "abcdefghijklmnopqrstuvwxyz0123456789";
+        $key = "";
+        for($i=0; $i<$length; $i++)
+            $key .= $charset[(mt_rand(0,(strlen($charset)-1)))];
+        return $key;
+    }
+	
+	public function updateUserToken($id) {
+	
 	}
 	
     public function getBarang(){
@@ -417,13 +429,6 @@ class Api_model extends CI_Model {
 		return $this->db->affected_rows() > 0; 
     }    
 	
-	private function generateString($length){
-        $charset = "abcdefghijklmnopqrstuvwxyz0123456789";
-        $key = "";
-        for($i=0; $i<$length; $i++)
-            $key .= $charset[(mt_rand(0,(strlen($charset)-1)))];
-        return $key;
-    }
 }
 
 class TableDB {

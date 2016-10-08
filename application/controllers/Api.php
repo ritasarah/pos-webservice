@@ -207,7 +207,7 @@ class Api extends REST_Controller {
 			$this->response($res, 200);
 		}
 		else
-			$this->response("invalid token", 200);
+			$this->response("invalid token alskdfjlskjdflskdjflskdjflsdkjflskdjflsdkjfsldkjfsldkjfsdlkjfsdlkjf", 200);
     }
 
     public function getHistoryBarang_get(){
