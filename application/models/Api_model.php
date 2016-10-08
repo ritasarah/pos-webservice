@@ -320,7 +320,14 @@ class Api_model extends CI_Model {
     }
 	
 	public function updateUserToken($id) {
-	
+		$new_token = generateToken(10);
+		$this->db->update('token',$new_token);
+		$this->db->from('userdata');
+		$this->db->where('id', $id);
+		if ($this->db->affected_rows() > 0)
+			return $new_token;
+		else
+			return "";
 	}
 	
     public function getBarang(){
@@ -425,7 +432,15 @@ class Api_model extends CI_Model {
         // $qty  = $this->input->post('qty');
 
 		$this->db->update('userdata', $data, "id = '$id'");
-		return $this->db->affected_rows() > 0; 
+		if ($this->db->affected_rows() > 0) {
+			$new_token = updateUserToken($id);
+			if ($new_token!= "")
+				return $new_token;
+			else
+				return "";
+		}
+		else
+			return "";
     }    
 	
 }
