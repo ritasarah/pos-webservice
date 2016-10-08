@@ -326,10 +326,8 @@ class Api_model extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->update('userdata');
 		
-		echo "token: ".$new_token."\n";
 		if ($this->db->affected_rows() > 0) {
 			return $new_token;
-			echo "db affected!";
 		}
 		else
 			return "";
