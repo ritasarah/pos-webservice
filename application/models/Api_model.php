@@ -324,8 +324,11 @@ class Api_model extends CI_Model {
 		$this->db->update('token',$new_token);
 		$this->db->from('userdata');
 		$this->db->where('id', $id);
-		if ($this->db->affected_rows() > 0)
+		echo "token: ".$new_token."\n";
+		if ($this->db->affected_rows() > 0) {
 			return $new_token;
+			echo "db affected!";
+		}
 		else
 			return "";
 	}
@@ -433,7 +436,7 @@ class Api_model extends CI_Model {
 
 		$this->db->update('userdata', $data, "id = '$id'");
 		if ($this->db->affected_rows() > 0) {
-			$new_token = updateUserToken($id);
+			$new_token = $this->updateUserToken($id);
 			if ($new_token!= "")
 				return $new_token;
 			else
