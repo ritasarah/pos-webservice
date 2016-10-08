@@ -320,14 +320,15 @@ class Api_model extends CI_Model {
     }
 	
 	public function updateUserToken($id) {
-		$new_token = "'" . $this->generateToken(10) . "'";
+		$the_token = $this->generateToken(10);
+		$new_token = "'" . $the_token . "'";
 		
 		$this->db->set('token', $new_token, FALSE);
 		$this->db->where('id', $id);
 		$this->db->update('userdata');
 		
 		if ($this->db->affected_rows() > 0) {
-			return $new_token;
+			return $the_token;
 		}
 		else
 			return "";
