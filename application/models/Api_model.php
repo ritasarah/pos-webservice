@@ -308,7 +308,7 @@ class Api_model extends CI_Model {
         }
         else {
 			var_dump($query->result_array());
-            return $query->result_array()->token;
+            return $query->result_array();
         }
 	}
 	
