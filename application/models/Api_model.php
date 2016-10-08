@@ -358,6 +358,7 @@ class Api_model extends CI_Model {
         $this->db->from('histori');
         $this->db->join('barang', 'histori.id_barang=barang.id', 'left');
         $this->db->where('id_user', $id);
+		date_default_timezone_set("Asia/Bangkok");
 
         if($reqtype==1){//daily
           $date = date('Y-m-d'); 

@@ -249,6 +249,7 @@ class Api extends REST_Controller {
     public function postHistori_get(){
 		$id_user = $this->get('id_user');
 		$token = $this->get('token');
+		date_default_timezone_set("Asia/Bangkok");
 		
 		if ($token == $this->api_model->getUserToken($id_user)) {
 			$data = array(
